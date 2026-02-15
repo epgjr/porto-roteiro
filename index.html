@@ -746,25 +746,31 @@ const itineraryRef = database.ref('itinerary');
         let draggedElement = null;
         let draggedIndex = null;
 // Sincronizar com Firebase em tempo real
-    itineraryRef.on('value', (snapshot) => {
-        const data = snapshot.val();
-        if (data) {
-            itinerary = data;
-            renderDaysNav();
-            showDay(currentDay);
-        } else {
-            // Primeira vez - salvar padrão
-            itineraryRef.set(defaultItinerary);
-            itinerary = JSON.parse(JSON.stringify(defaultItinerary));
-            renderDaysNav();
-            showDay(0);
-        }
-    });
+let firebaseInitialized = false;
 
-    document.addEventListener('DOMContentLoaded', function() {
-        // Inicialização acontece no itineraryRef.on acima
-    });
+itineraryRef.on('value', (snapshot) => {
+    const data = snapshot.val();
+    if (data && data.days && data.days.length > 0) {
+        // Dados válidos do Firebase
+        itinerary = data;
+    } else if (!firebaseInitialized) {
+        // Primeira vez - salvar padrão
+        itinerary = JSON.parse(JSON.stringify(defaultItinerary));
+        itineraryRef.set(itinerary);
+    }
+    
+    firebaseInitialized = true;
+    
+    // Só renderizar se tiver dados válidos
+    if (itinerary && itinerary.days) {
+        renderDaysNav();
+        showDay(currentDay);
+    }
+});
 
+document.addEventListener('DOMContentLoaded', function() {
+    // Inicialização acontece no itineraryRef.on acima
+});
 
     
     // Carregar local como fallback
