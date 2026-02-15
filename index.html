@@ -934,11 +934,11 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
 		// Configurar autocomplete do Google Places
+
 function setupAutocomplete(dayIndex, placeIndex) {
     const input = document.getElementById(`place-name-${dayIndex}-${placeIndex}`);
     
     if (!input || !google.maps || !google.maps.places) {
-        console.log('Aguardando Google Maps...');
         return;
     }
     
@@ -952,31 +952,19 @@ function setupAutocomplete(dayIndex, placeIndex) {
         const place = autocomplete.getPlace();
         
         if (place.geometry && place.geometry.location) {
-            // Atualizar nome
             const placeName = place.name || place.formatted_address;
-            input.value = placeName;
-            updatePlace(dayIndex, placeIndex, 'name', placeName);
-            
-            // Atualizar coordenadas
             const lat = place.geometry.location.lat();
             const lng = place.geometry.location.lng();
-            updatePlace(dayIndex, placeIndex, 'lat', lat);
-            updatePlace(dayIndex, placeIndex, 'lng', lng);
             
-            // Atualizar campos visualmente
-            const container = input.closest('.edit-place');
-            if (container) {
-                const latInput = container.querySelector('input[placeholder*="Latitude"]');
-                const lngInput = container.querySelector('input[placeholder*="Longitude"]');
-                if (latInput) latInput.value = lat.toFixed(7);
-                if (lngInput) lngInput.value = lng.toFixed(7);
-            }
+            // Atualizar no objeto
+            itinerary.days[dayIndex].places[placeIndex].name = placeName;
+            itinerary.days[dayIndex].places[placeIndex].lat = lat;
+            itinerary.days[dayIndex].places[placeIndex].lng = lng;
             
-            // Salvar e atualizar mapa
+            // Salvar
             saveItinerary();
-            setTimeout(() => {
-                showDay(dayIndex);
-            }, 300);
+            
+            console.log('Local salvo:', placeName, lat, lng);
         }
     });
 }
