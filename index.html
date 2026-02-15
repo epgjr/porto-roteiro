@@ -772,17 +772,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // Inicialização acontece no itineraryRef.on acima
 });
 
-    
-    // Carregar local como fallback
-    const stored = localStorage.getItem('portoItinerary');
-    if (stored && !window.itineraryRef) {
-        itinerary = JSON.parse(stored);
-    }
-    
-    renderDaysNav();
-    showDay(0);
-});
-
         // ========== GOOGLE MAPS ==========
         function initMap() {
             map = new google.maps.Map(document.getElementById('map'), {
