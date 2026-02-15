@@ -663,6 +663,25 @@
 	const database = getDatabase(app);
 	window.itineraryRef = ref(database, 'itinerary');
 	</script>
+	<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
+
+<script>
+// Inicializar Firebase
+firebase.initializeApp({
+  apiKey: "AIzaSyALD-Nrc-dYfRLFBi-vuuEW06tpm3n3u1g",
+  authDomain: "porto-roteiro.firebaseapp.com",
+  databaseURL: "https://porto-roteiro-default-rtdb.firebaseio.com",
+  projectId: "porto-roteiro",
+  storageBucket: "porto-roteiro.firebasestorage.app",
+  messagingSenderId: "886950722259",
+  appId: "1:886950722259:web:791fb9fe863892056c7226"
+});
+
+const database = firebase.database();
+const itineraryRef = database.ref('itinerary');
+</script>
     <script>
         // ========== DADOS DO ROTEIRO ==========
         const defaultItinerary = {
@@ -726,21 +745,27 @@
         let markers = [];
         let draggedElement = null;
         let draggedIndex = null;
+// Sincronizar com Firebase em tempo real
+    itineraryRef.on('value', (snapshot) => {
+        const data = snapshot.val();
+        if (data) {
+            itinerary = data;
+            renderDaysNav();
+            showDay(currentDay);
+        } else {
+            // Primeira vez - salvar padrão
+            itineraryRef.set(defaultItinerary);
+            itinerary = JSON.parse(JSON.stringify(defaultItinerary));
+            renderDaysNav();
+            showDay(0);
+        }
+    });
 
-        // Inicializar e sincronizar com Firebase
-document.addEventListener('DOMContentLoaded', async function() {
-    // Tentar carregar do Firebase
-    if (window.itineraryRef) {
-        const { onValue } = await import('https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js');
-        onValue(window.itineraryRef, (snapshot) => {
-            const data = snapshot.val();
-            if (data) {
-                itinerary = data;
-                renderDaysNav();
-                showDay(currentDay);
-            }
-        });
-    }
+    document.addEventListener('DOMContentLoaded', function() {
+        // Inicialização acontece no itineraryRef.on acima
+    });
+
+
     
     // Carregar local como fallback
     const stored = localStorage.getItem('portoItinerary');
@@ -812,15 +837,13 @@ document.addEventListener('DOMContentLoaded', async function() {
         }
 
         // ========== SALVAR/CARREGAR ==========
-       async function saveItinerary() {
-    // Salvar no Firebase
-    if (window.itineraryRef) {
-        const { set } = await import('https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js');
-        set(window.itineraryRef, itinerary);
+     	function saveItinerary() {
+        // Salvar no Firebase (sincroniza entre todos)
+        itineraryRef.set(itinerary);
+        // Backup local
+        localStorage.setItem('portoItinerary', JSON.stringify(itinerary));
     }
-    // Backup local
-    localStorage.setItem('portoItinerary', JSON.stringify(itinerary));
-}
+
 
         // ========== NAVEGAÇÃO ==========
         function renderDaysNav() {
