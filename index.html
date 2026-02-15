@@ -863,6 +863,9 @@ function renderPlaceEdit(place, index, dayIndex) {
             <input type="text" value="${place.time}"
                    onchange="updatePlace(${dayIndex}, ${index}, 'time', this.value)"
                    placeholder="Horário (ex: 10:00)">
+            <input type="text" value="${place.duration}"
+                   onchange="updatePlace(${dayIndex}, ${index}, 'duration', parseInt(this.value))"
+                   placeholder="Duração em minutos (ex: 45)">
             <input type="text" value="${place.icon}"
                    onchange="updatePlace(${dayIndex}, ${index}, 'icon', this.value)"
                    placeholder="Emoji (ex: 🍕)"
