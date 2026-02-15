@@ -85,50 +85,6 @@
             flex-wrap: wrap;
         }
         
-        .header-btn {
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(10px);
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            color: white;
-            padding: 0.75rem 1.5rem;
-            border-radius: 12px;
-            font-weight: 600;
-            font-size: 0.95rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            white-space: nowrap;
-            font-family: 'DM Sans', sans-serif;
-        }
-        
-        .header-btn:hover {
-            background: rgba(255, 255, 255, 0.3);
-            transform: translateY(-2px);
-        }
-        
-        .sync-status {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.5rem 1rem;
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(10px);
-            border-radius: 8px;
-            font-size: 0.85rem;
-        }
-        
-        .sync-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: var(--porto-green);
-            animation: pulse 2s infinite;
-        }
-        
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
-        
         .container {
             max-width: 1400px;
             margin: 0 auto;
@@ -187,6 +143,40 @@
             background: var(--porto-blue);
             color: white;
             box-shadow: var(--shadow-medium);
+        }
+        
+        .edit-btn {
+            background: var(--porto-green);
+            border: 2px solid var(--porto-green);
+            color: white;
+            padding: 0.75rem 1.1rem;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            box-shadow: var(--shadow-soft);
+            font-family: 'DM Sans', sans-serif;
+            flex-shrink: 0;
+        }
+        
+        .edit-btn:hover {
+            background: #3d7349;
+            border-color: #3d7349;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-medium);
+        }
+        
+        .edit-btn.editing {
+            background: var(--porto-terracotta);
+            border-color: var(--porto-terracotta);
+            animation: pulse-red 1.5s infinite;
+        }
+        
+        @keyframes pulse-red {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(201, 87, 77, 0.5); }
+            50% { box-shadow: 0 0 0 8px rgba(201, 87, 77, 0); }
         }
         
         .content-grid {
@@ -567,32 +557,10 @@
                 <h1>Porto • Março 2026</h1>
                 <p class="subtitle">5 dias explorando a cidade invicta</p>
             </div>
-            <div class="header-actions">
-                <div class="sync-status">
-                    <span class="sync-dot"></span>
-                    <span>Sincronizado</span>
-                </div>
-                <button class="header-btn" onclick="toggleEditSection()">⚙️ Ajustar Roteiro</button>
-            </div>
         </div>
     </div>
 
     <div class="container">
-        <div class="collapsible-section hidden" id="editSection">
-            <div class="section-content">
-                <h3 style="font-family: 'Playfair Display', serif; font-size: 1.5rem; margin-bottom: 1rem; color: var(--porto-blue);">⚙️ Ajustar Roteiro</h3>
-                <div class="edit-controls">
-                    <button class="btn btn-primary" onclick="toggleEditMode()">
-                        <span id="editModeText">Ativar Edição</span>
-                    </button>
-                    <button class="btn btn-tertiary" onclick="resetToDefault()">🔄 Restaurar Padrão</button>
-                </div>
-                <p style="font-size: 0.9rem; color: var(--porto-stone); margin-top: 1rem;">
-                    💡 <strong>No modo edição você pode:</strong> Editar nome dos dias • Adicionar novos locais • Arrastar lugares para reordenar • Editar informações de cada local • Remover lugares
-                </p>
-            </div>
-        </div>
-
         <div class="days-nav" id="daysNav"></div>
 
         <div class="content-grid">
@@ -749,11 +717,13 @@ function initMap() {
 // ========== NAVEGAÇÃO ==========
 function renderDaysNav() {
     const nav = document.getElementById('daysNav');
-    nav.innerHTML = itinerary.days.map((day, index) =>
+    const dayButtons = itinerary.days.map((day, index) =>
         `<button class="day-btn ${index === currentDay ? 'active' : ''}" onclick="showDay(${index})">
             Dia ${day.id}: ${day.title}
         </button>`
     ).join('');
+    const editButton = `<button class="edit-btn ${editMode ? 'editing' : ''}" onclick="toggleEditMode()" title="${editMode ? 'Concluir edição' : 'Ajustar roteiro'}">⚙️</button>`;
+    nav.innerHTML = dayButtons + editButton;
 }
 
 // ========== MOSTRAR DIA ==========
@@ -1059,13 +1029,9 @@ function setupDragAndDropEdit(dayIndex) {
 }
 
 // ========== AÇÕES ==========
-function toggleEditSection() {
-    document.getElementById('editSection').classList.toggle('hidden');
-}
-
 function toggleEditMode() {
     editMode = !editMode;
-    document.getElementById('editModeText').textContent = editMode ? 'Desativar Edição' : 'Ativar Edição';
+    renderDaysNav();
     showDay(currentDay);
 }
 
@@ -1116,16 +1082,6 @@ function deletePlace(dayIndex, placeIndex) {
         itinerary.days[dayIndex].places.splice(placeIndex, 1);
         saveItinerary();
         showDay(dayIndex);
-    }
-}
-
-function resetToDefault() {
-    if (confirm('Restaurar o roteiro padrão? Todas as alterações serão perdidas.')) {
-        itinerary = JSON.parse(JSON.stringify(defaultItinerary));
-        saveItinerary();
-        editMode = false;
-        document.getElementById('editModeText').textContent = 'Ativar Edição';
-        showDay(0);
     }
 }
 
