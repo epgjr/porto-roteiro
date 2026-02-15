@@ -365,52 +365,7 @@
             color: var(--porto-stone);
             margin-bottom: 0.5rem;
         }
-
-		.route-info {
-    background: linear-gradient(135deg, #f0f7ff 0%, #e8f4ff 100%);
-    border-left: 3px solid var(--porto-blue);
-    padding: 0.75rem;
-    margin: 1rem 0 1rem 0;
-    border-radius: 0 8px 8px 0;
-    font-size: 0.85rem;
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-}
-
-.route-info-loading {
-    opacity: 0.6;
-    font-style: italic;
-}
-
-.route-distance {
-    font-weight: 600;
-    color: var(--porto-blue);
-}
-
-.route-duration {
-    color: var(--porto-stone);
-}
-
-.transport-selector {
-    padding: 0.4rem 0.8rem;
-    border: 2px solid var(--porto-blue);
-    border-radius: 6px;
-    background: white;
-    cursor: pointer;
-    font-size: 0.85rem;
-    transition: all 0.3s ease;
-    font-family: 'DM Sans', sans-serif;
-}
-
-.transport-selector:hover {
-    background: var(--porto-cream);
-}
-
-.transport-selector:focus {
-    outline: none;
-    border-color: var(--porto-gold);
-}
+        
         .place-notes {
             font-size: 0.9rem;
             color: var(--porto-dark);
@@ -736,10 +691,10 @@ const itineraryRef = database.ref('itinerary');
                     title: "Chegada & Centro Histórico",
                     places: [
                         { name: "Livraria Lello", lat: 41.1469055, lng: -8.6147746, time: "10:00", duration: 45, notes: "Uma das livrarias mais bonitas do mundo! Reserve online (€10, dedutível em compras). Chegue cedo para evitar multidões.", icon: "📚", visited: false, comments: "" },
-                        { name: "Torre dos Clérigos", lat: 41.1456705, lng: -8.6145977, time: "11:30", duration: 90, notes: "Suba os 240 degraus para vista panorâmica espetacular! Ticket ~€8-10. A igreja barroca também é linda.", icon: "🗼", visited: false, comments: "", transportMode: "WALKING" },
-                        { name: "Majestic Café", lat: 41.1472382, lng: -8.6065795, time: "13:30", duration: 60, notes: "Almoço no café histórico art nouveau (1921). Experimente a Rabanada famosa e café com música ao vivo!", icon: "☕", visited: false, comments: "", transportMode: "WALKING" },
-                        { name: "Sé do Porto (Catedral)", lat: 41.1428531, lng: -8.6111165, time: "15:30", duration: 60, notes: "Catedral do século XII com claustro gótico e azulejos portugueses. Vista linda do terraço. Entrada: €4", icon: "⛪", visited: false, comments: "", transportMode: "WALKING" },
-                        { name: "The Door", lat: 41.1441961, lng: -8.616688, time: "19:00", duration: 120, notes: "⭐ JANTAR: Intimista e excelente! Reserve! Beef Tagliata e vieiras imperdíveis. Sangria top.", icon: "🍽️", visited: false, comments: "", transportMode: "WALKING" }
+                        { name: "Torre dos Clérigos", lat: 41.1456705, lng: -8.6145977, time: "11:30", duration: 90, notes: "Suba os 240 degraus para vista panorâmica espetacular! Ticket ~€8-10. A igreja barroca também é linda.", icon: "🗼", visited: false, comments: "" },
+                        { name: "Majestic Café", lat: 41.1472382, lng: -8.6065795, time: "13:30", duration: 60, notes: "Almoço no café histórico art nouveau (1921). Experimente a Rabanada famosa e café com música ao vivo!", icon: "☕", visited: false, comments: "" },
+                        { name: "Sé do Porto (Catedral)", lat: 41.1428531, lng: -8.6111165, time: "15:30", duration: 60, notes: "Catedral do século XII com claustro gótico e azulejos portugueses. Vista linda do terraço. Entrada: €4", icon: "⛪", visited: false, comments: "" },
+                        { name: "The Door", lat: 41.1441961, lng: -8.616688, time: "19:00", duration: 120, notes: "⭐ JANTAR: Intimista e excelente! Reserve! Beef Tagliata e vieiras imperdíveis. Sangria top.", icon: "🍽️", visited: false, comments: "" }
                     ]
                 },
                 {
@@ -747,8 +702,8 @@ const itineraryRef = database.ref('itinerary');
                     title: "Vale do Douro & Vinícolas",
                     places: [
                         { name: "Quinta do Seixo (Sandeman)", lat: 41.1681615, lng: -7.5548695, time: "10:30", duration: 180, notes: "🍷 Vista ESPETACULAR do Douro! Tour + degustação 5 vinhos (€32). Reserve online. Inclui almoço opcional. Paisagem de cinema!", icon: "🍇", visited: false, comments: "" },
-                        { name: "Quinta do Pôpa", lat: 41.1536111, lng: -7.6011111, time: "14:30", duration: 120, notes: "Segunda vinícola com vistas incríveis! Pet-friendly. Opção de picnic no terraço. Staff super atencioso. Fecha seg/ter.", icon: "🍷", visited: false, comments: "", transportMode: "WALKING" },
-                        { name: "Bota & Bira", lat: 41.1424129, lng: -8.6158059, time: "20:00", duration: 120, notes: "⭐ JANTAR: Especialista em carnes! Ribeye e Chorizo Rice são obrigatórios. Aconchegante. Reserve! Fecha dom/seg.", icon: "🥩", visited: false, comments: "", transportMode: "WALKING" }
+                        { name: "Quinta do Pôpa", lat: 41.1536111, lng: -7.6011111, time: "14:30", duration: 120, notes: "Segunda vinícola com vistas incríveis! Pet-friendly. Opção de picnic no terraço. Staff super atencioso. Fecha seg/ter.", icon: "🍷", visited: false, comments: "" },
+                        { name: "Bota & Bira", lat: 41.1424129, lng: -8.6158059, time: "20:00", duration: 120, notes: "⭐ JANTAR: Especialista em carnes! Ribeye e Chorizo Rice são obrigatórios. Aconchegante. Reserve! Fecha dom/seg.", icon: "🥩", visited: false, comments: "" }
                     ]
                 },
                 {
@@ -756,10 +711,10 @@ const itineraryRef = database.ref('itinerary');
                     title: "Ribeira & Rio Douro",
                     places: [
                         { name: "Mercado do Bolhão", lat: 41.1493855, lng: -8.6071175, time: "09:30", duration: 90, notes: "Mercado tradicional lindo e limpo! Produtos locais, queijos, bacalhau. Ótimo para brunch. Restaurantes no piso superior.", icon: "🥖", visited: false, comments: "" },
-                        { name: "Palácio da Bolsa", lat: 41.1413772, lng: -8.6156725, time: "11:30", duration: 90, notes: "Palácio neoclássico - UNESCO. A Sala Árabe inspirada na Alhambra é DESLUMBRANTE! Tour guiado obrigatório. Reserve online!", icon: "🏛️", visited: false, comments: "", transportMode: "WALKING" },
-                        { name: "Ribeira", lat: 41.1432682, lng: -8.6103135, time: "14:00", duration: 120, notes: "Almoço livre + passeio pelo bairro mais fotogênico! Casas coloridas. Considere passeio de barco 6 pontes (€20, 1h).", icon: "🏘️", visited: false, comments: "", transportMode: "WALKING" },
-                        { name: "Ponte Dom Luís I", lat: 41.1399589, lng: -8.6094485, time: "17:00", duration: 60, notes: "Atravesse a pé (nível superior). Vista espetacular! Construída em 1886. Do outro lado há caves de vinho. Ideal ao pôr do sol!", icon: "🌉", visited: false, comments: "", transportMode: "WALKING" },
-                        { name: "Casa D'oro", lat: 41.1479419, lng: -8.6427335, time: "19:30", duration: 120, notes: "⭐ JANTAR: Italiano com terraço INCRÍVEL sobre o Douro! Tagliatelle camarão e pizza Diavola. Chegue cedo pro terraço!", icon: "🍝", visited: false, comments: "", transportMode: "WALKING" }
+                        { name: "Palácio da Bolsa", lat: 41.1413772, lng: -8.6156725, time: "11:30", duration: 90, notes: "Palácio neoclássico - UNESCO. A Sala Árabe inspirada na Alhambra é DESLUMBRANTE! Tour guiado obrigatório. Reserve online!", icon: "🏛️", visited: false, comments: "" },
+                        { name: "Ribeira", lat: 41.1432682, lng: -8.6103135, time: "14:00", duration: 120, notes: "Almoço livre + passeio pelo bairro mais fotogênico! Casas coloridas. Considere passeio de barco 6 pontes (€20, 1h).", icon: "🏘️", visited: false, comments: "" },
+                        { name: "Ponte Dom Luís I", lat: 41.1399589, lng: -8.6094485, time: "17:00", duration: 60, notes: "Atravesse a pé (nível superior). Vista espetacular! Construída em 1886. Do outro lado há caves de vinho. Ideal ao pôr do sol!", icon: "🌉", visited: false, comments: "" },
+                        { name: "Casa D'oro", lat: 41.1479419, lng: -8.6427335, time: "19:30", duration: 120, notes: "⭐ JANTAR: Italiano com terraço INCRÍVEL sobre o Douro! Tagliatelle camarão e pizza Diavola. Chegue cedo pro terraço!", icon: "🍝", visited: false, comments: "" }
                     ]
                 },
                 {
@@ -767,8 +722,8 @@ const itineraryRef = database.ref('itinerary');
                     title: "Jardins & Fine Dining",
                     places: [
                         { name: "Jardins do Palácio de Cristal", lat: 41.1482682, lng: -8.6255165, time: "10:00", duration: 150, notes: "Jardins lindos com vista panorâmica do Douro e cidade! Pavões soltos, vários mirantes. Caminhada romântica. Entrada gratuita!", icon: "🌳", visited: false, comments: "" },
-                        { name: "Em Canto", lat: 41.144569, lng: -8.6120973, time: "13:00", duration: 90, notes: "Almoço tranquilo longe do turismo. Ótimo atendimento, comida portuguesa tradicional bem feita. Ambiente acolhedor. Fecha domingo.", icon: "🍴", visited: false, comments: "", transportMode: "WALKING" },
-                        { name: "Pedro Lemos", lat: 41.1480641, lng: -8.6500361, time: "19:30", duration: 180, notes: "⭐⭐ JANTAR MICHELIN: 1 estrela à beira do Douro! Menu degustação 7 momentos (€180). RESERVE COM MUITA ANTECEDÊNCIA! Sofisticado mas acolhedor. Fecha dom/seg/ter.", icon: "🌟", visited: false, comments: "", transportMode: "WALKING" }
+                        { name: "Em Canto", lat: 41.144569, lng: -8.6120973, time: "13:00", duration: 90, notes: "Almoço tranquilo longe do turismo. Ótimo atendimento, comida portuguesa tradicional bem feita. Ambiente acolhedor. Fecha domingo.", icon: "🍴", visited: false, comments: "" },
+                        { name: "Pedro Lemos", lat: 41.1480641, lng: -8.6500361, time: "19:30", duration: 180, notes: "⭐⭐ JANTAR MICHELIN: 1 estrela à beira do Douro! Menu degustação 7 momentos (€180). RESERVE COM MUITA ANTECEDÊNCIA! Sofisticado mas acolhedor. Fecha dom/seg/ter.", icon: "🌟", visited: false, comments: "" }
                     ]
                 },
                 {
@@ -776,8 +731,8 @@ const itineraryRef = database.ref('itinerary');
                     title: "Último Dia & Despedida",
                     places: [
                         { name: "Igreja dos Clérigos", lat: 41.1458838, lng: -8.6139451, time: "10:00", duration: 60, notes: "Igreja barroca linda. À noite tem show de luzes especial (verifique horários). Peaceful e fotogênica.", icon: "⛪", visited: false, comments: "" },
-                        { name: "Ribeira - Compras", lat: 41.1432682, lng: -8.6103135, time: "12:00", duration: 120, notes: "Último almoço na Ribeira! Compre lembranças: vinho do Porto, azulejos, sardinhas em lata, produtos de cortiça. Explore lojinhas.", icon: "🛍️", visited: false, comments: "", transportMode: "WALKING" },
-                        { name: "A Despensa", lat: 41.1472496, lng: -8.613547, time: "19:00", duration: 120, notes: "⭐ JANTAR DE DESPEDIDA: Italiano excepcional! Burrata imperdível, lasanha com bechamel, fusili pesto amêndoas. Ótimo custo-benefício. Reserve! Fecha seg.", icon: "🍕", visited: false, comments: "", transportMode: "WALKING" }
+                        { name: "Ribeira - Compras", lat: 41.1432682, lng: -8.6103135, time: "12:00", duration: 120, notes: "Último almoço na Ribeira! Compre lembranças: vinho do Porto, azulejos, sardinhas em lata, produtos de cortiça. Explore lojinhas.", icon: "🛍️", visited: false, comments: "" },
+                        { name: "A Despensa", lat: 41.1472496, lng: -8.613547, time: "19:00", duration: 120, notes: "⭐ JANTAR DE DESPEDIDA: Italiano excepcional! Burrata imperdível, lasanha com bechamel, fusili pesto amêndoas. Ótimo custo-benefício. Reserve! Fecha seg.", icon: "🍕", visited: false, comments: "" }
                     ]
                 }
             ]
@@ -817,6 +772,17 @@ document.addEventListener('DOMContentLoaded', function() {
     // Inicialização acontece no itineraryRef.on acima
 });
 
+    
+    // Carregar local como fallback
+    const stored = localStorage.getItem('portoItinerary');
+    if (stored && !window.itineraryRef) {
+        itinerary = JSON.parse(stored);
+    }
+    
+    renderDaysNav();
+    showDay(0);
+});
+
         // ========== GOOGLE MAPS ==========
         function initMap() {
             map = new google.maps.Map(document.getElementById('map'), {
@@ -830,152 +796,51 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         function updateMap(places) {
-    // Limpar markers antigos
-    markers.forEach(marker => marker.setMap(null));
-    markers = [];
-    
-    // Limpar rotas antigas
-    if (window.currentDirectionsRenderer) {
-        window.currentDirectionsRenderer.setMap(null);
-    }
-    
-    const bounds = new google.maps.LatLngBounds();
-    
-    // Criar markers
-    places.forEach((place, index) => {
-        const marker = new google.maps.Marker({
-            position: { lat: place.lat, lng: place.lng },
-            map: map,
-            title: place.name,
-            label: {
-                text: `${index + 1}`,
-                color: 'white',
-                fontWeight: 'bold'
-            },
-            icon: {
-                path: google.maps.SymbolPath.CIRCLE,
-                scale: 15,
-                fillColor: place.visited ? '#4a8b5c' : '#d4af37',
-                fillOpacity: 1,
-                strokeColor: '#1a4d7a',
-                strokeWeight: 3
-            }
-        });
-        
-        const infoWindow = new google.maps.InfoWindow({
-            content: `<div style="padding: 10px; max-width: 200px;">
-                        <strong>${place.name}</strong><br>
-                        <em>${place.time} • ${place.duration}min</em><br>
-                        ${place.notes}
-                      </div>`
-        });
-        
-        marker.addListener('click', () => {
-            infoWindow.open(map, marker);
-        });
-        
-        markers.push(marker);
-        bounds.extend(marker.getPosition());
-    });
-    
-    // Desenhar rota conectando todos os pontos
-    if (places.length > 1) {
-        const directionsService = new google.maps.DirectionsService();
-        const directionsRenderer = new google.maps.DirectionsRenderer({
-            map: map,
-            suppressMarkers: true, // Não mostrar markers padrão
-            polylineOptions: {
-                strokeColor: '#1a4d7a',
-                strokeWeight: 4,
-                strokeOpacity: 0.7
-            }
-        });
-        
-        window.currentDirectionsRenderer = directionsRenderer;
-        
-        // Criar waypoints (pontos intermediários)
-        const waypoints = places.slice(1, -1).map(place => ({
-            location: new google.maps.LatLng(place.lat, place.lng),
-            stopover: true
-        }));
-        
-        const request = {
-            origin: new google.maps.LatLng(places[0].lat, places[0].lng),
-            destination: new google.maps.LatLng(places[places.length - 1].lat, places[places.length - 1].lng),
-            waypoints: waypoints,
-            travelMode: google.maps.TravelMode.WALKING,
-            optimizeWaypoints: false
-        };
-        
-        directionsService.route(request, (result, status) => {
-            if (status === 'OK') {
-                directionsRenderer.setDirections(result);
-            }
-        });
-    }
-    
-    if (places.length > 0) {
-        map.fitBounds(bounds);
-    }
-}
-
-		function calculateRoute(dayIndex, placeIndex) {
-    const day = itinerary.days[dayIndex];
-    const place = day.places[placeIndex];
-    const previousPlace = day.places[placeIndex - 1];
-    
-    if (!place || !previousPlace) return;
-    
-    const directionsService = new google.maps.DirectionsService();
-    const transportMode = place.transportMode || 'WALKING';
-    
-    const request = {
-        origin: new google.maps.LatLng(previousPlace.lat, previousPlace.lng),
-        destination: new google.maps.LatLng(place.lat, place.lng),
-        travelMode: google.maps.TravelMode[transportMode]
-    };
-    
-    directionsService.route(request, (result, status) => {
-        const routeDiv = document.getElementById(`route-${dayIndex}-${placeIndex}`);
-        
-        if (status === 'OK' && result.routes[0]) {
-            const leg = result.routes[0].legs[0];
-            const distance = leg.distance.text;
-            const duration = leg.duration.text;
+            markers.forEach(marker => marker.setMap(null));
+            markers = [];
             
-            if (routeDiv) {
-                routeDiv.innerHTML = `
-                    <div style="flex: 1;">
-                        <span class="route-distance">${distance}</span>
-                        <span class="route-duration"> • ${duration}</span>
-                    </div>
-                    <select class="transport-selector" 
-                            onchange="changeTransportMode(${dayIndex}, ${placeIndex}, this.value); calculateRoute(${dayIndex}, ${placeIndex});">
-                        <option value="WALKING" ${transportMode === 'WALKING' ? 'selected' : ''}>🚶 A pé</option>
-                        <option value="DRIVING" ${transportMode === 'DRIVING' ? 'selected' : ''}>🚗 Carro</option>
-                        <option value="TRANSIT" ${transportMode === 'TRANSIT' ? 'selected' : ''}>🚇 Transporte público</option>
-                        <option value="BICYCLING" ${transportMode === 'BICYCLING' ? 'selected' : ''}>🚲 Bicicleta</option>
-                    </select>
-                `;
-            }
-        } else {
-            if (routeDiv) {
-                routeDiv.innerHTML = `
-                    <div style="flex: 1;">
-                        <span style="color: var(--porto-terracotta);">Rota não disponível</span>
-                    </div>
-                    <select class="transport-selector" 
-                            onchange="changeTransportMode(${dayIndex}, ${placeIndex}, this.value); calculateRoute(${dayIndex}, ${placeIndex});">
-                        <option value="WALKING" ${transportMode === 'WALKING' ? 'selected' : ''}>🚶 A pé</option>
-                        <option value="DRIVING" ${transportMode === 'DRIVING' ? 'selected' : ''}>🚗 Carro</option>
-                        <option value="TRANSIT" ${transportMode === 'TRANSIT' ? 'selected' : ''}>🚇 Transporte público</option>
-                        <option value="BICYCLING" ${transportMode === 'BICYCLING' ? 'selected' : ''}>🚲 Bicicleta</option>
-                    </select>
-                `;
+            const bounds = new google.maps.LatLngBounds();
+            
+            places.forEach((place, index) => {
+                const marker = new google.maps.Marker({
+                    position: { lat: place.lat, lng: place.lng },
+                    map: map,
+                    title: place.name,
+                    label: {
+                        text: `${index + 1}`,
+                        color: 'white',
+                        fontWeight: 'bold'
+                    },
+                    icon: {
+                        path: google.maps.SymbolPath.CIRCLE,
+                        scale: 15,
+                        fillColor: place.visited ? '#4a8b5c' : '#d4af37',
+                        fillOpacity: 1,
+                        strokeColor: '#1a4d7a',
+                        strokeWeight: 3
+                    }
+                });
+                
+                const infoWindow = new google.maps.InfoWindow({
+                    content: `<div style="padding: 10px; max-width: 200px;">
+                                <strong>${place.name}</strong><br>
+                                <em>${place.time} • ${place.duration}min</em><br>
+                                ${place.notes}
+                              </div>`
+                });
+                
+                marker.addListener('click', () => {
+                    infoWindow.open(map, marker);
+                });
+                
+                markers.push(marker);
+                bounds.extend(marker.getPosition());
+            });
+            
+            if (places.length > 0) {
+                map.fitBounds(bounds);
             }
         }
-    });
-}
 
         // ========== SALVAR/CARREGAR ==========
      	function saveItinerary() {
@@ -1030,99 +895,64 @@ document.addEventListener('DOMContentLoaded', function() {
                     setupDragAndDrop();
                 }
             }
-            // Calcular rotas para todos os lugares
-setTimeout(() => {
-    day.places.forEach((place, index) => {
-        if (index > 0) {
-            calculateRoute(dayIndex, index);
-        }
-    });
-}, 500);
+            
             updateMap(day.places);
         }
 
         // ========== RENDERIZAR LUGARES ==========
-function renderPlace(place, index, dayIndex) {
-    if (editMode) {
-        return `
-            <div class="edit-place" draggable="true" data-index="${index}">
-                <h4>📍 Lugar ${index + 1} <span class="drag-handle" style="position: static; opacity: 0.5; margin-left: 10px;">⋮⋮ Arraste para reordenar</span></h4>
-                <input type="text" value="${place.name}" 
-                       onchange="updatePlace(${dayIndex}, ${index}, 'name', this.value)" 
-                       placeholder="Nome do lugar">
-                <input type="text" value="${place.time}" 
-                       onchange="updatePlace(${dayIndex}, ${index}, 'time', this.value)" 
-                       placeholder="Horário (ex: 10:00)">
-                <input type="text" value="${place.icon}" 
-                       onchange="updatePlace(${dayIndex}, ${index}, 'icon', this.value)" 
-                       placeholder="Emoji (ex: 🍕)"
-                       style="width: 100px;">
-                <input type="text" value="${place.lat}" 
-                       onchange="updatePlace(${dayIndex}, ${index}, 'lat', parseFloat(this.value))" 
-                       placeholder="Latitude (ex: 41.1479)"
-                       style="width: 48%; display: inline-block; margin-right: 2%;">
-                <input type="text" value="${place.lng}" 
-                       onchange="updatePlace(${dayIndex}, ${index}, 'lng', parseFloat(this.value))" 
-                       placeholder="Longitude (ex: -8.6145)"
-                       style="width: 48%; display: inline-block;">
-                <textarea onchange="updatePlace(${dayIndex}, ${index}, 'notes', this.value)" 
-                          placeholder="Notas e dicas">${place.notes}</textarea>
-                <button class="btn btn-danger" onclick="deletePlace(${dayIndex}, ${index})">🗑️ Remover Local</button>
-            </div>
-        `;
-    }
-    
-    // HTML do lugar normal
-    let html = `
-        <div class="place-card ${place.visited ? 'visited' : ''}">
-            <div class="place-number">${index + 1}</div>
-            <div class="place-header">
-                <label class="checkbox-container">
-                    <input type="checkbox" ${place.visited ? 'checked' : ''} 
-                           onchange="toggleVisited(${dayIndex}, ${index}, this.checked)">
-                    <span class="checkmark"></span>
-                </label>
-                <div class="place-info">
-                    <div class="place-name">
-                        <span class="icon">${place.icon}</span>
-                        ${place.name}
-                    </div>
-                    <div class="place-time">🕐 ${place.time} • ${place.duration}min</div>
-                    <div class="place-notes">${place.notes}</div>
-                    <div class="place-comments">
-                        <label class="comments-label">💭 Suas anotações:</label>
-                        <textarea class="comments-input" 
-                                  placeholder="Adicione suas dicas e observações aqui..."
-                                  onchange="updateComments(${dayIndex}, ${index}, this.value)">${place.comments || ''}</textarea>
+        function renderPlace(place, index, dayIndex) {
+            return `
+                <div class="place-card ${place.visited ? 'visited' : ''}" 
+                     draggable="${editMode}" 
+                     data-index="${index}">
+                    ${editMode ? '<span class="drag-handle">⋮⋮</span>' : ''}
+                    <div class="place-number">${index + 1}</div>
+                    <div class="place-header">
+                        <label class="checkbox-container">
+                            <input type="checkbox" ${place.visited ? 'checked' : ''} 
+                                   onchange="toggleVisited(${dayIndex}, ${index}, this.checked)">
+                            <span class="checkmark"></span>
+                        </label>
+                        <div class="place-info">
+                            <div class="place-name">
+                                <span class="icon">${place.icon}</span>
+                                ${place.name}
+                            </div>
+                            <div class="place-time">🕐 ${place.time} • ${place.duration}min</div>
+                            <div class="place-notes">${place.notes}</div>
+                            <div class="place-comments">
+                                <label class="comments-label">💭 Suas anotações:</label>
+                                <textarea class="comments-input" 
+                                          placeholder="Adicione suas dicas e observações aqui..."
+                                          onchange="updateComments(${dayIndex}, ${index}, this.value)">${place.comments || ''}</textarea>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    `;
-    
-    // Adicionar informação de rota (se não for o primeiro)
-    if (index > 0) {
-        const previousPlace = itinerary.days[dayIndex].places[index - 1];
-        const transportMode = place.transportMode || 'WALKING';
-        
-        html += `
-            <div class="route-info" id="route-${dayIndex}-${index}">
-                <div style="flex: 1;">
-                    <span class="route-distance">Calculando rota...</span>
+            `;
+        }
+
+        function renderPlaceEdit(place, index, dayIndex) {
+            return `
+                <div class="edit-place" draggable="true" data-index="${index}">
+                    <h4>📍 Lugar ${index + 1} <span class="drag-handle" style="position: static; opacity: 0.5; margin-left: 10px;">⋮⋮ Arraste para reordenar</span></h4>
+                    <input type="text" id="place-name-${dayIndex}-${index}" value="${place.name}" 
+                           onchange="updatePlace(${dayIndex}, ${index}, 'name', this.value)" 
+                           placeholder="Digite o nome do lugar">
+						   <div id="autocomplete-results-${dayIndex}-${index}" style="border: 1px solid #ccc; max-height: 200px; overflow-y: auto; display: none;"></div>
+                    <input type="text" value="${place.time}" 
+                           onchange="updatePlace(${dayIndex}, ${index}, 'time', this.value)" 
+                           placeholder="Horário (ex: 10:00)">
+                    <input type="text" value="${place.icon}" 
+                           onchange="updatePlace(${dayIndex}, ${index}, 'icon', this.value)" 
+                           placeholder="Emoji (ex: 🍕)"
+                           style="width: 100px;">
+                    <textarea onchange="updatePlace(${dayIndex}, ${index}, 'notes', this.value)" 
+                              placeholder="Notas e dicas">${place.notes}</textarea>
+                    <button class="btn btn-danger" onclick="deletePlace(${dayIndex}, ${index})">🗑️ Remover Local</button>
                 </div>
-                <select class="transport-selector" 
-                        onchange="changeTransportMode(${dayIndex}, ${index}, this.value); calculateRoute(${dayIndex}, ${index});">
-                    <option value="WALKING" ${transportMode === 'WALKING' ? 'selected' : ''}>🚶 A pé</option>
-                    <option value="DRIVING" ${transportMode === 'DRIVING' ? 'selected' : ''}>🚗 Carro</option>
-                    <option value="TRANSIT" ${transportMode === 'TRANSIT' ? 'selected' : ''}>🚇 Transporte público</option>
-                    <option value="BICYCLING" ${transportMode === 'BICYCLING' ? 'selected' : ''}>🚲 Bicicleta</option>
-                </select>
-            </div>
-        `;
-    }
-    
-    return html;
-}
+            `;
+        }
 
         // ========== DRAG AND DROP ==========
         function setupDragAndDrop() {
@@ -1179,11 +1009,6 @@ function renderPlace(place, index, dayIndex) {
                 }
             }, { offset: Number.NEGATIVE_INFINITY }).element;
         }
-
-		function changeTransportMode(dayIndex, placeIndex, mode) {
-    itinerary.days[dayIndex].places[placeIndex].transportMode = mode;
-    saveItinerary();
-}
 
         // ========== AÇÕES ==========
         function toggleEditSection() {
