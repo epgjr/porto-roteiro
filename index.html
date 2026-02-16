@@ -497,6 +497,70 @@
             background: #3d7349;
             transform: translateY(-2px);
         }
+
+        .edit-action-buttons {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+
+        .edit-day-buttons {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: 0.75rem;
+        }
+
+        .btn-add-small {
+            background: var(--porto-green);
+            color: white;
+            flex: 1;
+            padding: 0.6rem 1rem;
+            font-size: 0.9rem;
+        }
+
+        .btn-add-small:hover {
+            background: #3d7349;
+            transform: translateY(-2px);
+        }
+
+        .btn-conclude {
+            background: var(--porto-blue);
+            color: white;
+            flex: 1;
+            padding: 0.6rem 1rem;
+            font-size: 0.9rem;
+        }
+
+        .btn-conclude:hover {
+            background: #2a5c8f;
+            transform: translateY(-2px);
+        }
+
+        .btn-add-day {
+            background: var(--porto-gold);
+            color: white;
+            flex: 1;
+            padding: 0.6rem 1rem;
+            font-size: 0.9rem;
+        }
+
+        .btn-add-day:hover {
+            background: #c29d2f;
+            transform: translateY(-2px);
+        }
+
+        .btn-delete-day {
+            background: var(--porto-terracotta);
+            color: white;
+            flex: 1;
+            padding: 0.6rem 1rem;
+            font-size: 0.9rem;
+        }
+
+        .btn-delete-day:hover {
+            background: #a84438;
+            transform: translateY(-2px);
+        }
         
         .edit-controls {
             display: flex;
@@ -717,13 +781,13 @@ function initMap() {
 // ========== NAVEGAÇÃO ==========
 function renderDaysNav() {
     const nav = document.getElementById('daysNav');
+    const editButton = `<button class="edit-btn ${editMode ? 'editing' : ''}" onclick="toggleEditMode()" title="${editMode ? 'Concluir edição' : 'Ajustar roteiro'}">⚙️</button>`;
     const dayButtons = itinerary.days.map((day, index) =>
         `<button class="day-btn ${index === currentDay ? 'active' : ''}" onclick="showDay(${index})">
             Dia ${day.id}: ${day.title}
         </button>`
     ).join('');
-    const editButton = `<button class="edit-btn ${editMode ? 'editing' : ''}" onclick="toggleEditMode()" title="${editMode ? 'Concluir edição' : 'Ajustar roteiro'}">⚙️</button>`;
-    nav.innerHTML = dayButtons + editButton;
+    nav.innerHTML = editButton + dayButtons;
 }
 
 // ========== MOSTRAR DIA ==========
@@ -735,6 +799,10 @@ function showDay(dayIndex) {
     const list = document.getElementById('placesList');
 
     if (editMode) {
+        const placesHtml = day.places && day.places.length > 0
+            ? day.places.map((place, index) => renderPlaceEdit(place, index, dayIndex)).join('')
+            : '<p style="color: var(--porto-stone); font-style: italic; padding: 1rem 0;">Nenhum local ainda. Adicione um local abaixo!</p>';
+
         list.innerHTML = `
             <div class="day-title-container">
                 <input type="text" class="day-title-edit" value="${day.title}"
@@ -742,16 +810,24 @@ function showDay(dayIndex) {
                        placeholder="Nome do dia">
             </div>
             <div id="editPlacesContainer">
-                ${day.places.map((place, index) => renderPlaceEdit(place, index, dayIndex)).join('')}
+                ${placesHtml}
             </div>
-            <button class="btn btn-add" onclick="addNewPlace(${dayIndex})">➕ Adicionar Local</button>
+            <div class="edit-action-buttons">
+                <button class="btn btn-add-small" onclick="addNewPlace(${dayIndex})">➕ Adicionar Local</button>
+                <button class="btn btn-conclude" onclick="concludeEdit()">✅ Concluir</button>
+            </div>
+            <div class="edit-day-buttons">
+                <button class="btn btn-add-day" onclick="addNewDay()">📅 Adicionar Dia</button>
+                <button class="btn btn-delete-day" onclick="deleteDay(${dayIndex})">🗑️ Excluir Dia</button>
+            </div>
         `;
         setupDragAndDropEdit(dayIndex);
-        // Ativar autocomplete em todos os campos
         setTimeout(() => {
-            day.places.forEach((place, index) => {
-                setupAutocomplete(dayIndex, index);
-            });
+            if (day.places) {
+                day.places.forEach((place, index) => {
+                    setupAutocomplete(dayIndex, index);
+                });
+            }
         }, 300);
     } else {
         list.innerHTML = `
@@ -1035,6 +1111,41 @@ function toggleEditMode() {
     showDay(currentDay);
 }
 
+function concludeEdit() {
+    editMode = false;
+    renderDaysNav();
+    showDay(currentDay);
+}
+
+function addNewDay() {
+    const newId = itinerary.days.length + 1;
+    itinerary.days.push({
+        id: newId,
+        title: `Dia ${newId}`,
+        places: []
+    });
+    saveItinerary();
+    currentDay = itinerary.days.length - 1;
+    renderDaysNav();
+    showDay(currentDay);
+}
+
+function deleteDay(dayIndex) {
+    if (itinerary.days.length <= 1) {
+        alert('Você não pode excluir o único dia do roteiro!');
+        return;
+    }
+    if (confirm(`Excluir o dia "${itinerary.days[dayIndex].title}" e todos os seus locais?`)) {
+        itinerary.days.splice(dayIndex, 1);
+        // Renumerar ids
+        itinerary.days.forEach((day, i) => { day.id = i + 1; });
+        saveItinerary();
+        currentDay = Math.min(dayIndex, itinerary.days.length - 1);
+        renderDaysNav();
+        showDay(currentDay);
+    }
+}
+
 function updateDayTitle(dayIndex, title) {
     itinerary.days[dayIndex].title = title;
     saveItinerary();
@@ -1080,6 +1191,9 @@ function updatePlace(dayIndex, placeIndex, field, value) {
 function deletePlace(dayIndex, placeIndex) {
     if (confirm('Tem certeza que deseja remover este local?')) {
         itinerary.days[dayIndex].places.splice(placeIndex, 1);
+        if (!itinerary.days[dayIndex].places) {
+            itinerary.days[dayIndex].places = [];
+        }
         saveItinerary();
         showDay(dayIndex);
     }
