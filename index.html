@@ -561,6 +561,36 @@
             background: #a84438;
             transform: translateY(-2px);
         }
+
+        .day-reorder-buttons {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.75rem;
+        }
+
+        .btn-reorder {
+            background: white;
+            color: var(--porto-blue);
+            border: 2px solid var(--porto-blue);
+            padding: 0.4rem 0.9rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: 'DM Sans', sans-serif;
+        }
+
+        .btn-reorder:hover:not([disabled]) {
+            background: var(--porto-blue);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .btn-reorder[disabled] {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
         
         .edit-controls {
             display: flex;
@@ -798,16 +828,29 @@ function showDay(dayIndex) {
 
     const list = document.getElementById('placesList');
 
+    // Garantir que places é sempre um array
+    if (!day.places || !Array.isArray(day.places)) {
+        day.places = [];
+    }
+
     if (editMode) {
-        const placesHtml = day.places && day.places.length > 0
+        const placesHtml = day.places.length > 0
             ? day.places.map((place, index) => renderPlaceEdit(place, index, dayIndex)).join('')
             : '<p style="color: var(--porto-stone); font-style: italic; padding: 1rem 0;">Nenhum local ainda. Adicione um local abaixo!</p>';
+
+        // Botões de reordenar dias
+        const canMoveLeft  = dayIndex > 0;
+        const canMoveRight = dayIndex < itinerary.days.length - 1;
 
         list.innerHTML = `
             <div class="day-title-container">
                 <input type="text" class="day-title-edit" value="${day.title}"
                        onchange="updateDayTitle(${dayIndex}, this.value)"
                        placeholder="Nome do dia">
+                <div class="day-reorder-buttons">
+                    <button class="btn btn-reorder" onclick="moveDay(${dayIndex}, -1)" ${!canMoveLeft ? 'disabled' : ''} title="Mover para antes">◀ Mover</button>
+                    <button class="btn btn-reorder" onclick="moveDay(${dayIndex},  1)" ${!canMoveRight ? 'disabled' : ''} title="Mover para depois">Mover ▶</button>
+                </div>
             </div>
             <div id="editPlacesContainer">
                 ${placesHtml}
@@ -823,20 +866,19 @@ function showDay(dayIndex) {
         `;
         setupDragAndDropEdit(dayIndex);
         setTimeout(() => {
-            if (day.places) {
-                day.places.forEach((place, index) => {
-                    setupAutocomplete(dayIndex, index);
-                });
-            }
+            day.places.forEach((place, index) => {
+                setupAutocomplete(dayIndex, index);
+            });
         }, 300);
     } else {
+        const placesHtml = day.places.length > 0
+            ? day.places.map((place, index) => renderPlace(place, index, dayIndex)).join('')
+            : '<p style="color: var(--porto-stone); font-style: italic; padding: 2rem 0; text-align: center;">Nenhum local adicionado a este dia.</p>';
+
         list.innerHTML = `
             <h2 class="day-title">Dia ${day.id}: ${day.title}</h2>
-            <div id="placesContainer">
-                ${day.places.map((place, index) => renderPlace(place, index, dayIndex)).join('')}
-            </div>
+            <div id="placesContainer">${placesHtml}</div>
         `;
-        // Calcular distâncias após render
         setTimeout(() => {
             day.places.forEach((place, index) => {
                 if (index > 0) calculateRoute(dayIndex, index);
@@ -1006,6 +1048,7 @@ function changeTransport(dayIndex, placeIndex, mode) {
 
 // ========== ATUALIZAR MAPA ==========
 function updateMap(places) {
+    if (!places || !Array.isArray(places)) places = [];
     markers.forEach(m => m.setMap(null));
     markers = [];
     if (directionsRenderer) directionsRenderer.setMap(null);
@@ -1117,6 +1160,24 @@ function concludeEdit() {
     showDay(currentDay);
 }
 
+function moveDay(dayIndex, direction) {
+    const newIndex = dayIndex + direction;
+    if (newIndex < 0 || newIndex >= itinerary.days.length) return;
+
+    // Trocar os dias
+    const temp = itinerary.days[dayIndex];
+    itinerary.days[dayIndex] = itinerary.days[newIndex];
+    itinerary.days[newIndex] = temp;
+
+    // Renumerar ids
+    itinerary.days.forEach((day, i) => { day.id = i + 1; });
+
+    currentDay = newIndex;
+    saveItinerary();
+    renderDaysNav();
+    showDay(currentDay);
+}
+
 function addNewDay() {
     const newId = itinerary.days.length + 1;
     itinerary.days.push({
@@ -1153,6 +1214,10 @@ function updateDayTitle(dayIndex, title) {
 }
 
 function addNewPlace(dayIndex) {
+    // Garantir que places existe (Firebase pode retornar null para arrays vazios)
+    if (!itinerary.days[dayIndex].places || !Array.isArray(itinerary.days[dayIndex].places)) {
+        itinerary.days[dayIndex].places = [];
+    }
     itinerary.days[dayIndex].places.push({
         name: "", lat: 41.1579, lng: -8.6291,
         time: "00:00", duration: 60,
@@ -1161,7 +1226,6 @@ function addNewPlace(dayIndex) {
     });
     saveItinerary();
     showDay(dayIndex);
-    // Focar no novo campo
     setTimeout(() => {
         const inputs = document.querySelectorAll('[id^="place-name-"]');
         if (inputs.length > 0) {
